@@ -5,7 +5,7 @@ services:
     tty: true # コンテナを起動させ続ける（永続化させる）ために必要な設定
     volumes: # ローカルのファイルとコンテナ内のファイルを同期させている
       - type: bind
-        source: "./cmd"
+        source: "./backend"
         target: "/go/src/app"
     ports:
       - "8080:8080"
