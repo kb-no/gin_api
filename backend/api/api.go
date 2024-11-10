@@ -3,6 +3,11 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"database/sql"
+	_ "github.com/go-sql-driver/mysql"
+	"fmt"
+	"os"
+	"log"
 )
 
 type User struct {
@@ -10,7 +15,37 @@ type User struct {
 	Age  int    `json:"age"`
 }
 
+func initDB() (*sql.DB, error) {
+	dbUser := os.Getenv("DB_USER")
+	dbPassword := os.Getenv("DB_PASSWORD")
+	dbName := os.Getenv("DB_NAME")
+	dbHost := os.Getenv("DB_HOST")
+
+	if dbHost == "" {
+		dbHost = "mysql" // MySQLサービス名を指定
+	}
+
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:3306)/%s", dbUser, dbPassword, dbHost, dbName)
+
+	db, err := sql.Open("mysql", dsn)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := db.Ping(); err != nil {
+		return nil, err
+	}
+
+	return db, nil
+}
+
 func main() {
+	db, err := initDB()
+	if err != nil {
+		log.Fatalf("Could not connect to the database: %v", err)
+	}
+	defer db.Close()
+
 	r := gin.Default()
 
 	r.GET("/sample", func(c *gin.Context) {
