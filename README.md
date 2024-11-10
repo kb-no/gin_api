@@ -10,9 +10,9 @@ set go.mod file and `go mod tidy` on shell
 Push Send Request button in `api/requests.http`
 
 ### How to connect Sequel Ace
-Name: <any>
-Host: localhost
-Username: root
-Password: ginapi
-Database: ginapi
-Port: 3306
+Name: {any}  
+Host: localhost  
+Username: root  
+Password: ginapi  
+Database: ginapi  
+Port: 3306  

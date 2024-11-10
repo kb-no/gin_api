@@ -4,18 +4,18 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"database/sql"
-	_ "github.com/go-sql-driver/mysql"
-	"fmt"
-	"os"
-	"log"
-)
+	_ "github.com/go-sql-driver/mysql" // アンダースコアを使ってパッケージをインポートすると、
+	"fmt"                              // そのパッケージの初期化関数（init関数）が実行されるが、
+	"os"                               //パッケージ内の関数や変数を直接使用することはできない。
+	"log"                              // パッケージの副作用（例えば、データベースドライバの登録など）
+)                                    // を実行するために使われる。
 
 type User struct {
 	Name string `json:"name" binding:"required"` // bindingはバリデーション
 	Age  int    `json:"age"`
 }
 
-func initDB() (*sql.DB, error) {
+func initDB() (*sql.DB, error) { // DB接続の関数
 	dbUser := os.Getenv("DB_USER")
 	dbPassword := os.Getenv("DB_PASSWORD")
 	dbName := os.Getenv("DB_NAME")
@@ -44,7 +44,9 @@ func main() {
 	if err != nil {
 		log.Fatalf("Could not connect to the database: %v", err)
 	}
-	defer db.Close()
+	defer db.Close() // データベース接続は、システムリソースを消費する。接続を開いたままにしておくと、
+	                 // リソースが無駄に消費され、最終的には接続数の上限に達する可能性がある。
+									 // deferを使用することで、関数が終了する際に自動的に接続が閉じられ、リソースが解放される。
 
 	r := gin.Default()
 

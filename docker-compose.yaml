@@ -12,7 +12,7 @@ services:
     working_dir: /go/src/app  # コンテナに入った際のデフォルトのディレクトリを指定
                               # これにより、コンテナを立ち上げたコンテナに入った際に
                               # /go/src/appディレクトリから作業を開始することができる
-    environment:
+    environment: # 環境変数を指定(Dockerを立ち上げた時に環境変数を自動で設定する)
       DB_USER: "root"
       DB_PASSWORD: "ginapi"
       DB_NAME: "ginapi"
