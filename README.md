@@ -1,4 +1,10 @@
 ### How to build
 1. `docker compose up -d`
 2. `docker compose exec go sh`
-3. `go run 01_packages_variables_and_functions/01_packages.go`
+3. `go run api/api.go`
+
+if it doesn't work...
+set go.mod file and `go mod tidy` on shell
+
+### How to use api
+Push Send Request button in `api/requests.http`
