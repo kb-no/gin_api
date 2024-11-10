@@ -1,0 +1,40 @@
+### 変数定義
+@baseUrl = http://localhost:8080
+@contentType = application/json
+
+### GET リクエスト
+GET {{baseUrl}}/v1/users
+Accept: {{contentType}}
+
+### GET リクエスト (ID指定)
+# GET {{baseUrl}}/users/123
+# Accept: {{contentType}}
+
+### GET リクエスト　（クエリパラメータ）
+GET {{baseUrl}}/goods?category=book
+Accept: {{contentType}}
+
+### GET リクエスト　（リダイレクト）
+GET {{baseUrl}}/about
+Accept: {{contentType}}
+
+### POST リクエスト
+POST {{baseUrl}}/users
+Content-Type: {{contentType}}
+
+{
+    "name": "山田太郎",
+    "age": 30
+}
+
+### PUT リクエスト
+PUT {{baseUrl}}/users/123
+Content-Type: {{contentType}}
+
+{
+    "name": "山田花子",
+    "age": 25
+}
+
+### DELETE リクエスト
+DELETE {{baseUrl}}/users/123
